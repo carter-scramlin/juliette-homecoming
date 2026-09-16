@@ -1,8 +1,8 @@
 const groups = [
-  { title: "A Shakespearean love story", words: ["ROMEO", "BALCONY", "VERONA", "ROSE"] },
-  { title: "A perfect date night", words: ["MOVIE", "DINNER", "LAUGHTER", "STARGAZING"] },
-  { title: "Ways to say yes", words: ["ABSOLUTELY", "DEFINITELY", "GLADLY", "OBVIOUSLY"] },
-  { title: "Homecoming essentials", words: ["CORSAGE", "MUSIC", "PHOTOS", "DANCING"] }
+  { title: "___ CALL", words: ["VIDEO", "ROLL", "CURTAIN", "WAKE-UP"], level: 0 },
+  { title: "ON CARTER'S DRUMLINE", words: ["SNARE", "TENORS", "BASS", "CYMBALS"], level: 1 },
+  { title: "IN JULIETTE'S GUARD BAG", words: ["FLAG", "RIFLE", "SABRE", "SILK"], level: 2 },
+  { title: "DECEMBER 23, 2025", words: ["TUESDAY", "WINTER", "CAPRICORN", "FESTIVUS"], level: 3 }
 ];
 
 const palette = ["#ff4fa3", "#ffd166", "#55c9ff", "#a778ff", "#86e3ce"];
@@ -12,7 +12,6 @@ const submitButton = document.querySelector("#submit-button");
 const deselectButton = document.querySelector("#deselect-button");
 const shuffleButton = document.querySelector("#shuffle-button");
 const message = document.querySelector("#message");
-const foundCount = document.querySelector("#found-count");
 const mistakeDots = document.querySelector("#mistake-dots");
 const reveal = document.querySelector("#reveal");
 
@@ -62,7 +61,7 @@ function addSolvedGroup(groupIndex) {
   const group = groups[groupIndex];
   const card = document.createElement("article");
   card.className = "solved-group";
-  card.dataset.level = String(groupIndex);
+  card.dataset.level = String(group.level);
   card.innerHTML = `<h3>${group.title}</h3><p>${group.words.join(" · ")}</p>`;
   solvedGroups.append(card);
 }
@@ -84,7 +83,6 @@ async function evaluateSelection() {
     board = board.filter(word => !selected.has(word));
     selected.clear();
     addSolvedGroup(exactIndex);
-    foundCount.textContent = String(solved.length);
     grid.classList.remove("pop");
     locked = false;
     renderBoard();
@@ -110,11 +108,33 @@ async function evaluateSelection() {
   await delay(380);
   renderBoard();
   if (mistakes >= 4) {
-    mistakes = 0;
-    setMessage("Fresh set of chances—you’ve got this.", "error");
-    renderDots();
+    setMessage("Out of mistakes! Revealing the remaining groups…", "error");
+    await delay(500);
+    await revealRemainingGroups();
+    return { status: "game_over", oneAway };
   }
   return { status: "incorrect", oneAway };
+}
+
+async function revealRemainingGroups() {
+  locked = true;
+  selected.clear();
+  board = [];
+  renderBoard();
+  const remaining = groups
+    .map((group, index) => ({ group, index }))
+    .filter(({ index }) => !solved.includes(index))
+    .sort((a, b) => a.group.level - b.group.level);
+
+  for (const { index } of remaining) {
+    solved.push(index);
+    addSolvedGroup(index);
+    await delay(260);
+  }
+
+  setMessage("Better luck on the next puzzle!", "error");
+  await delay(800);
+  showReveal();
 }
 
 function showReveal() {
@@ -146,9 +166,10 @@ function celebrateYes() {
 }
 
 submitButton.addEventListener("click", evaluateSelection);
-deselectButton.addEventListener("click", () => { selected.clear(); renderBoard(); setMessage("Choose four words that belong together."); });
-shuffleButton.addEventListener("click", () => { board.sort(() => Math.random() - 0.5); renderBoard(); setMessage("Shuffled! Look for a fresh connection."); });
+deselectButton.addEventListener("click", () => { selected.clear(); renderBoard(); setMessage("Select four words that share a connection."); });
+shuffleButton.addEventListener("click", () => { board.sort(() => Math.random() - 0.5); renderBoard(); setMessage("Board shuffled."); });
 document.querySelector("#help-button").addEventListener("click", () => document.querySelector("#help-dialog").showModal());
+document.querySelector("#menu-button").addEventListener("click", () => document.querySelector("#help-dialog").showModal());
 document.querySelector("#yes-button").addEventListener("click", celebrateYes);
 document.querySelector("#also-yes-button").addEventListener("click", celebrateYes);
 
@@ -160,7 +181,7 @@ function registerWebMCP() {
   register({
     name: "select_puzzle_words",
     title: "Select puzzle words",
-    description: "Select up to four visible unsolved words in Juliette's category puzzle.",
+    description: "Select up to four visible unsolved words in the daily grouping puzzle.",
     inputSchema: { type: "object", properties: { words: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 4, uniqueItems: true } }, required: ["words"], additionalProperties: false },
     annotations: { readOnlyHint: false, untrustedContentHint: false },
     execute(input) {
