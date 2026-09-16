@@ -160,7 +160,7 @@ function launchConfetti(count = 70) {
 }
 
 function celebrateYes() {
-  document.querySelector("#answer-message").textContent = "Best answer ever. See you at Homecoming! ♡";
+  document.querySelector("#answer-message").textContent = "Thank you baby, I’m excited to spend the night with you. ♡";
   launchConfetti(130);
 }
 
