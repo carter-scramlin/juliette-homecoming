@@ -1,7 +1,7 @@
 const groups = [
   { title: "___ CALL", words: ["VIDEO", "ROLL", "CURTAIN", "WAKE-UP"], level: 0 },
-  { title: "ON CARTER'S DRUMLINE", words: ["SNARE", "TENORS", "BASS", "CYMBALS"], level: 1 },
-  { title: "IN JULIETTE'S GUARD BAG", words: ["FLAG", "RIFLE", "SABRE", "SILK"], level: 2 },
+  { title: "DRUMLINE EQUIPMENT", words: ["SNARE", "TENORS", "BASS", "CYMBALS"], level: 1 },
+  { title: "COLOR GUARD EQUIPMENT", words: ["FLAG", "RIFLE", "SABRE", "SILK"], level: 2 },
   { title: "DECEMBER 23, 2025", words: ["TUESDAY", "WINTER", "CAPRICORN", "FESTIVUS"], level: 3 }
 ];
 
@@ -141,7 +141,6 @@ function showReveal() {
   reveal.classList.add("visible");
   reveal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
-  launchConfetti(90);
   document.querySelector("#yes-button").focus();
 }
 
@@ -161,8 +160,12 @@ function launchConfetti(count = 70) {
 }
 
 function celebrateYes() {
-  document.querySelector("#yes-message").textContent = "Best answer ever. See you at Homecoming! ♡";
+  document.querySelector("#answer-message").textContent = "Best answer ever. See you at Homecoming! ♡";
   launchConfetti(130);
+}
+
+function respondNo() {
+  document.querySelector("#answer-message").textContent = "Okay — no pressure. ♡";
 }
 
 submitButton.addEventListener("click", evaluateSelection);
@@ -171,7 +174,7 @@ shuffleButton.addEventListener("click", () => { board.sort(() => Math.random() -
 document.querySelector("#help-button").addEventListener("click", () => document.querySelector("#help-dialog").showModal());
 document.querySelector("#menu-button").addEventListener("click", () => document.querySelector("#help-dialog").showModal());
 document.querySelector("#yes-button").addEventListener("click", celebrateYes);
-document.querySelector("#also-yes-button").addEventListener("click", celebrateYes);
+document.querySelector("#no-button").addEventListener("click", respondNo);
 
 function registerWebMCP() {
   const context = document.modelContext;
