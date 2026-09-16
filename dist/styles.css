@@ -203,13 +203,8 @@ button:disabled { opacity: .28; cursor: not-allowed; }
 .anniversary { margin: .9rem 0 .2rem; color: var(--muted); font-size: .92rem; font-weight: 700; letter-spacing: .2em; }
 .reveal h2 { margin: .45rem auto 1rem; font-size: clamp(2rem, 7.6vw, 4.6rem); line-height: 1.02; letter-spacing: -.052em; }
 .reveal h2 em {
-  padding: 0 .12em .05em;
-  border-radius: 4px;
   color: var(--ink);
-  background: var(--purple);
   font-family: Georgia, "Times New Roman", serif;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
 }
 .reveal-subtitle { width: min(92%, 540px); margin: 0 auto; color: var(--muted); font-size: clamp(.95rem, 3vw, 1.15rem); line-height: 1.5; }
 .answer-buttons { margin-top: 1.6rem; display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; }
