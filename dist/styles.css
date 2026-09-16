@@ -178,24 +178,47 @@ button:disabled { opacity: .28; cursor: not-allowed; }
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: radial-gradient(circle at top, #3c1b4d, #11101d 64%);
-  color: #fff;
+  background: #fff;
+  color: var(--ink);
   opacity: 0;
   visibility: hidden;
   transition: opacity .55s ease, visibility .55s;
 }
 .reveal.visible { opacity: 1; visibility: visible; }
-.reveal-card { width: min(96%, 700px); text-align: center; position: relative; z-index: 2; animation: revealIn .7s cubic-bezier(.2,.9,.25,1.15) both; }
-.reveal-kicker { margin: 0; color: #ff77b9; font-size: .78rem; font-weight: 800; letter-spacing: .2em; }
-.anniversary { margin: .9rem 0 .2rem; color: #d8c6e8; font-size: .92rem; font-weight: 700; letter-spacing: .2em; }
-.reveal h2 { margin: .45rem 0 1rem; font-size: clamp(2.15rem, 8.5vw, 5rem); line-height: .98; letter-spacing: -.052em; }
-.reveal h2 em { color: #ff77b9; font-family: Georgia, "Times New Roman", serif; }
-.reveal-subtitle { width: min(92%, 540px); margin: 0 auto; color: #c8c1d0; font-size: clamp(.95rem, 3vw, 1.15rem); line-height: 1.5; }
+.reveal-card {
+  width: min(96%, 700px);
+  padding: clamp(2rem, 6vw, 3.25rem) clamp(1rem, 5vw, 2.75rem);
+  position: relative;
+  z-index: 2;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, var(--yellow) 0 25%, var(--green) 25% 50%, var(--blue) 50% 75%, var(--purple) 75%) top / 100% 10px no-repeat,
+    #fff;
+  text-align: center;
+  box-shadow: 0 10px 28px rgba(0,0,0,.08);
+  animation: revealIn .7s cubic-bezier(.2,.9,.25,1.15) both;
+}
+.reveal-kicker { margin: 0; color: var(--ink); font-size: .78rem; font-weight: 800; letter-spacing: .2em; }
+.anniversary { margin: .9rem 0 .2rem; color: var(--muted); font-size: .92rem; font-weight: 700; letter-spacing: .2em; }
+.reveal h2 { margin: .45rem auto 1rem; font-size: clamp(2rem, 7.6vw, 4.6rem); line-height: 1.02; letter-spacing: -.052em; }
+.reveal h2 em {
+  padding: 0 .12em .05em;
+  border-radius: 4px;
+  color: var(--ink);
+  background: var(--purple);
+  font-family: Georgia, "Times New Roman", serif;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.reveal-subtitle { width: min(92%, 540px); margin: 0 auto; color: var(--muted); font-size: clamp(.95rem, 3vw, 1.15rem); line-height: 1.5; }
 .answer-buttons { margin-top: 1.6rem; display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; }
 .answer-buttons button { min-height: 52px; padding: .8rem 1.4rem; border-radius: 999px; font-weight: 800; cursor: pointer; }
-.yes-button { border: 0; color: white; background: linear-gradient(135deg, #ff4fa3, #d944df); box-shadow: 0 14px 32px rgba(255,79,163,.28); }
-.also-yes-button { border: 1px solid rgba(255,255,255,.25); color: white; background: rgba(255,255,255,.06); }
-.yes-message { min-height: 1.5rem; color: #ffb9da; font-weight: 800; }
+.yes-button { border: 1.5px solid var(--ink); color: #fff; background: var(--ink); }
+.no-button { border: 1.5px solid var(--ink); color: var(--ink); background: #fff; }
+.yes-button:hover { background: #333; }
+.no-button:hover { background: #f2f2f2; }
+.answer-message { min-height: 1.5rem; margin-bottom: 0; color: var(--ink); font-weight: 800; }
 .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .confetti-piece { position: absolute; top: -10%; width: 9px; height: 16px; border-radius: 2px; animation: fall linear forwards; }
 
@@ -217,6 +240,9 @@ button:disabled { opacity: .28; cursor: not-allowed; }
   .solved-group { border-radius: 6px; }
   .controls { gap: .4rem; }
   .control-button { min-height: 42px; padding: .55rem .8rem; font-size: .83rem; }
+  .reveal { padding: .75rem; }
+  .reveal-card { width: 100%; }
+  .reveal h2 { font-size: clamp(1.95rem, 9.2vw, 3.25rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
