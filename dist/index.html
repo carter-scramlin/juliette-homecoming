@@ -3,73 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101023" />
-    <meta name="description" content="A little category puzzle made especially for Juliette." />
-    <title>A Puzzle for Juliette</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101023'/%3E%3Cpath d='M32 51S11 39 11 23c0-11 14-14 21-4 7-10 21-7 21 4 0 16-21 28-21 28Z' fill='%23ff4fa3'/%3E%3C/svg%3E" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="A daily word-grouping puzzle." />
+    <title>Four of a Kind — Daily Puzzle</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23121212'/%3E%3Crect x='13' y='13' width='16' height='16' rx='3' fill='%23f3f3ed'/%3E%3Crect x='35' y='13' width='16' height='16' rx='3' fill='%23f3f3ed'/%3E%3Crect x='13' y='35' width='16' height='16' rx='3' fill='%23f3f3ed'/%3E%3Crect x='35' y='35' width='16' height='16' rx='3' fill='%23f3f3ed'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="ambient ambient-one"></div>
-    <div class="ambient ambient-two"></div>
+    <header class="topbar">
+      <button class="header-button" id="menu-button" type="button" aria-label="Menu">☰</button>
+      <h1>FOUR OF A KIND</h1>
+      <button class="header-button help-button" id="help-button" type="button" aria-label="How to play">?</button>
+    </header>
 
-    <main class="app-shell">
-      <header class="game-header">
-        <div>
-          <p class="eyebrow">A LITTLE PUZZLE FOR</p>
-          <h1>Juliette <span>♡</span></h1>
-        </div>
-        <div class="counter" aria-live="polite">
-          <span id="found-count">0</span><small>/4 groups</small>
-        </div>
-      </header>
+    <main class="game-shell">
+      <div class="puzzle-heading">
+        <p class="puzzle-label">DAILY GROUPING PUZZLE</p>
+        <h2>Find the links</h2>
+        <p>Create four groups of four!</p>
+      </div>
 
-      <section class="game-card" aria-labelledby="instructions">
-        <div class="intro-row">
-          <p id="instructions">Find four groups of four connected words.</p>
-          <button class="icon-button" id="help-button" type="button" aria-label="How to play" title="How to play">?</button>
-        </div>
-
+      <section class="game-area" aria-labelledby="instructions">
+        <p id="instructions" class="sr-only">Select four words that share a connection.</p>
         <div id="solved-groups" class="solved-groups" aria-live="polite"></div>
         <div id="word-grid" class="word-grid" aria-label="Word choices"></div>
 
-        <div class="status-area">
-          <p id="message" class="message" aria-live="assertive">Choose four words that belong together.</p>
-          <div class="mistakes" aria-label="Mistakes remaining">
-            <span>Mistakes left</span>
-            <div id="mistake-dots" class="mistake-dots"></div>
-          </div>
+        <p id="message" class="message" aria-live="assertive">Select four words that share a connection.</p>
+
+        <div class="mistakes" aria-label="Mistakes remaining">
+          <span>Mistakes remaining:</span>
+          <div id="mistake-dots" class="mistake-dots"></div>
         </div>
 
         <div class="controls">
-          <button id="shuffle-button" class="secondary-button" type="button">Shuffle</button>
-          <button id="deselect-button" class="secondary-button" type="button">Deselect all</button>
-          <button id="submit-button" class="primary-button" type="button" disabled>Submit</button>
+          <button id="shuffle-button" class="control-button" type="button">Shuffle</button>
+          <button id="deselect-button" class="control-button" type="button">Deselect All</button>
+          <button id="submit-button" class="control-button submit-button" type="button" disabled>Submit</button>
         </div>
       </section>
 
-      <p class="tiny-note">Made with a suspicious amount of thought.</p>
+      <p class="puzzle-number">Puzzle #1223</p>
     </main>
 
     <dialog id="help-dialog" class="help-dialog">
       <form method="dialog">
         <button class="dialog-close" aria-label="Close">×</button>
-        <p class="eyebrow">HOW TO PLAY</p>
-        <h2>Make four groups</h2>
-        <p>Select four words you think share a connection, then tap Submit. You get four mistake markers, plus unlimited chances—this is supposed to end happily.</p>
-        <button class="primary-button" value="close">Got it</button>
+        <h2>How to play</h2>
+        <p>Find groups of four items that share something in common.</p>
+        <ul>
+          <li>Select four items and tap Submit.</li>
+          <li>Find all four groups without making four mistakes.</li>
+          <li>Category connections may be more specific than they appear.</li>
+        </ul>
+        <button class="got-it-button" value="close">Got it</button>
       </form>
     </dialog>
 
     <section id="reveal" class="reveal" aria-hidden="true">
       <div id="confetti" class="confetti" aria-hidden="true"></div>
       <div class="reveal-card">
-        <p class="reveal-kicker">ONE LAST CONNECTION...</p>
+        <p class="reveal-kicker">ONE LAST CONNECTION</p>
+        <p class="anniversary">12 · 23 · 25</p>
         <h2>Juliette, will you go to<br /><em>Homecoming 2026</em><br />with me?</h2>
-        <p class="reveal-subtitle">I promise the date will be easier than the puzzle.</p>
+        <p class="reveal-subtitle">From band nights to our nightly calls, everything is better with you.</p>
         <div class="answer-buttons">
           <button id="yes-button" class="yes-button" type="button">YES! ♡</button>
           <button id="also-yes-button" class="also-yes-button" type="button">Obviously yes</button>
